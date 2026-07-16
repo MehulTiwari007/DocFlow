@@ -1,0 +1,10 @@
+# IntelliJ
+.idea/
+**/.idea/
+
+# Backend
+doc-flow backend/target/
+
+# Frontend
+doc-flow frontend/node_modules/
+doc-flow frontend/dist/
