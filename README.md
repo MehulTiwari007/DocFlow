@@ -73,16 +73,19 @@ DocFlow
 ---
 
 ## 🗄 Database Schema
+## 🗄️ Database Schema
 
-The application uses the following tables:
+The application uses PostgreSQL with the following tables:
 
 - Users
 - Documents
-- Comments
 - Document Access
+- Comments
 - Document Versions
 
----
+### Database Schema
+
+![Database Schema](database-schema.png)
 
 ## 🏗 Architecture
 
