@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
-import Editor from "./pages/Editor.tsx";
+import Editor from "./pages/Editor/Editor";
 import SharedDocuments from "./pages/SharedDocuments";
 
 function App() {
