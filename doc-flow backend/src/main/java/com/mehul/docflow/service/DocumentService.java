@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import com.mehul.docflow.dto.CollaboratorResponse;
 import java.util.ArrayList;
+import jakarta.transaction.Transactional;
 
 @Service
 public class DocumentService {
@@ -112,6 +113,7 @@ public class DocumentService {
 
     // Delete Document
     // Delete Document
+    @Transactional
     public String deleteDocument(Long id, String email) {
 
         User user = userRepository.findByEmail(email);
@@ -128,12 +130,12 @@ public class DocumentService {
             return "Access Denied";
         }
 
-        // Delete all sharing records first
         documentAccessRepository.deleteByDocument(document);
 
         documentVersionService.deleteVersions(document);
 
         documentRepository.delete(document);
+
         return "Document Deleted Successfully";
     }
 
