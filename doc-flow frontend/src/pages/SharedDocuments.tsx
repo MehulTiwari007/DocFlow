@@ -39,6 +39,7 @@ function SharedDocuments() {
         }
 
     };
+
     const removeDocument = async () => {
 
         if (selectedId === null) return;
@@ -86,17 +87,19 @@ function SharedDocuments() {
 
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-800">
 
-            <div className="max-w-6xl mx-auto p-8">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-                <div className="flex justify-between items-center mb-8">
+                {/* Header */}
 
-                    <h1 className="text-4xl font-bold text-white">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
+
+                    <h1 className="text-3xl sm:text-4xl font-bold text-white">
                         👥 Shared With Me
                     </h1>
 
                     <button
                         onClick={() => navigate("/dashboard")}
-                        className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg"
+                        className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg transition"
                     >
                         ← Dashboard
                     </button>
@@ -105,8 +108,20 @@ function SharedDocuments() {
 
                 {documents.length === 0 ? (
 
-                    <div className="bg-white rounded-xl p-6 text-center">
-                        No Shared Documents
+                    <div className="bg-white rounded-2xl shadow-lg p-10 text-center">
+
+                        <div className="text-5xl mb-4">
+                            📄
+                        </div>
+
+                        <h2 className="text-xl font-semibold text-gray-700">
+                            No Shared Documents
+                        </h2>
+
+                        <p className="text-gray-500 mt-2">
+                            Documents shared with you will appear here.
+                        </p>
+
                     </div>
 
                 ) : (
@@ -117,38 +132,40 @@ function SharedDocuments() {
 
                             <div
                                 key={item.document.id}
-                                className="bg-white rounded-xl shadow-lg p-6 flex justify-between items-center"
+                                className="bg-white rounded-2xl shadow-lg p-5 sm:p-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-5"
                             >
 
-                                <div>
+                                <div className="flex-1">
 
-                                    <h2 className="text-2xl font-bold">
+                                    <h2 className="text-xl sm:text-2xl font-bold break-words">
                                         📄 {item.document.title}
                                     </h2>
 
-                                    <p className="text-gray-500 mt-2">
-                                        Permission : {item.permission}
+                                    <p className="text-gray-500 mt-3">
+                                        Shared By: {item.document.owner.userName}
                                     </p>
+
                                     <p className="text-gray-500">
-                                        Shared By : {item.document.owner.userName}
+                                        Permission:
                                     </p>
+
                                     <span
-                                        className={`px-3 py-1 rounded-full text-white text-sm ${
+                                        className={`inline-block mt-2 px-3 py-1 rounded-full text-white text-sm font-medium ${
                                             item.permission === "EDITOR"
                                                 ? "bg-green-600"
                                                 : "bg-blue-600"
                                         }`}
                                     >
-    {item.permission}
-</span>
+                                        {item.permission}
+                                    </span>
 
                                 </div>
 
-                                <div className="flex gap-3">
+                                <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
 
                                     <button
                                         onClick={() => navigate(`/editor/${item.document.id}`)}
-                                        className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg"
+                                        className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg transition"
                                     >
                                         Open
                                     </button>
@@ -160,7 +177,7 @@ function SharedDocuments() {
                                             setConfirmOpen(true);
 
                                         }}
-                                        className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg"
+                                        className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg transition"
                                     >
                                         Remove
                                     </button>
@@ -176,6 +193,7 @@ function SharedDocuments() {
                 )}
 
             </div>
+
             <ConfirmDialog
                 open={confirmOpen}
                 title="Remove Shared Document"

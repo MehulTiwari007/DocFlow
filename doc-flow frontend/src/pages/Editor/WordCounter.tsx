@@ -18,17 +18,28 @@ export default function WordCounter({
     );
 
     return (
-        <div className="flex items-center gap-6 text-sm text-gray-600">
+        <div className="
+            flex
+            flex-wrap
+            items-center
+            justify-center
+            sm:justify-end
+            gap-3
+            sm:gap-6
+            text-xs
+            sm:text-sm
+            text-gray-600
+        ">
 
-            <span>
+            <span className="whitespace-nowrap">
                 <strong>{words}</strong> Words
             </span>
 
-            <span>
+            <span className="whitespace-nowrap">
                 <strong>{characters}</strong> Characters
             </span>
 
-            <span>
+            <span className="whitespace-nowrap">
                 <strong>{readingTime}</strong> min read
             </span>
 
