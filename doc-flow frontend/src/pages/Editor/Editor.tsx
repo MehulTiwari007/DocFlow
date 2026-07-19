@@ -84,7 +84,6 @@ export default function Editor() {
     // =========================
     const [comments, setComments] = useState<DocumentComment[]>([]);
 
-    const [commentText, setCommentText] = useState("");
 
     // =========================
     // Load Document + WebSocket
@@ -203,35 +202,23 @@ export default function Editor() {
             const token = localStorage.getItem("token");
 
             await api.put(
-
                 `/documents/${id}`,
-
                 {
                     title,
                     content,
                 },
-
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 }
-
             );
 
             setLastSaved(new Date());
 
-            setDialogMessage("Document Saved Successfully");
-
-            setDialogOpen(true);
-
         } catch (error) {
 
             console.log(error);
-
-            setDialogMessage("Unable to Save Document");
-
-            setDialogOpen(true);
 
         } finally {
 
@@ -468,49 +455,26 @@ export default function Editor() {
 
     };
 
-    const addComment = async () => {
+    const addComment = async (text: string) => {
 
-        if (commentText.trim() === "") return;
+        if (text.trim() === "") return;
 
-        try {
+        const token = localStorage.getItem("token");
 
-            const token = localStorage.getItem("token");
-
-            await api.post(
-
-                "/comments",
-
-                {
-                    documentId: Number(id),
-                    text: commentText,
+        await api.post(
+            "/comments",
+            {
+                documentId: Number(id),
+                text: text,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
                 },
+            }
+        );
 
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-
-            );
-
-            setCommentText("");
-
-            fetchComments();
-
-            setDialogMessage("Comment Added Successfully");
-
-            setDialogOpen(true);
-
-        } catch (error) {
-
-            console.log(error);
-
-            setDialogMessage("Unable to Add Comment");
-
-            setDialogOpen(true);
-
-        }
-
+        fetchComments();
     };
 
     const resolveComment = async (commentId: number) => {
@@ -698,10 +662,7 @@ export default function Editor() {
 
                         <CommentsPanel
                             comments={comments}
-                            onAddComment={(text) => {
-                                setCommentText(text);
-                                addComment();
-                            }}
+                            onAddComment={(text) => addComment(text)}
                             onResolveComment={resolveComment}
                         />
 

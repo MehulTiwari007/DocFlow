@@ -21,6 +21,9 @@ public class DocumentVersionService {
     @Autowired
     private DocumentRepository documentRepository;
 
+    public void deleteVersions(Document document) {
+        versionRepository.deleteByDocument(document);
+    }
     // Save Version
     public void saveVersion(Document document) {
 
@@ -80,6 +83,7 @@ public class DocumentVersionService {
         if (version == null) {
             return "Version Not Found";
         }
+
 
         Document document = version.getDocument();
 

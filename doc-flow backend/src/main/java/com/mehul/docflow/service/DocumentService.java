@@ -131,9 +131,9 @@ public class DocumentService {
         // Delete all sharing records first
         documentAccessRepository.deleteByDocument(document);
 
-        // Delete the document
-        documentRepository.delete(document);
+        documentVersionService.deleteVersions(document);
 
+        documentRepository.delete(document);
         return "Document Deleted Successfully";
     }
 

@@ -11,4 +11,6 @@ public interface DocumentVersionRepository
 
     List<DocumentVersion> findByDocumentOrderByCreatedAtDesc(Document document);
 
+
+    void deleteByDocument(Document document);
 }
