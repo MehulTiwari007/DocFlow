@@ -38,6 +38,8 @@ public class DocumentAccessService {
         // Only owner can share
         if (!document.getOwner().getId().equals(owner.getId())) {
             return "Access Denied";
+
+
         }
 
         User sharedUser = userRepository.findByEmail(request.getEmail());
