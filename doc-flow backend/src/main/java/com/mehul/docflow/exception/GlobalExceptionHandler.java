@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleRuntimeException(RuntimeException ex) {
 
-        ex.printStackTrace();   // <-- add this
+        ex.printStackTrace();
 
         Map<String, String> error = new HashMap<>();
         error.put("message", ex.getMessage());
