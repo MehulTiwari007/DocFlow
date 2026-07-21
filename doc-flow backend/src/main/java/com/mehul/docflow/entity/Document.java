@@ -1,7 +1,11 @@
 package com.mehul.docflow.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,10 +35,27 @@ public class Document {
     @JoinColumn(name = "owner_id")
     private User owner;
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "document",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<Comment> comments;
+
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "document",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<DocumentVersion> versions;
+
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "document",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<DocumentAccess> accesses;
 }
