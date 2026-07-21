@@ -116,15 +116,11 @@ public class DocumentService {
     @Transactional
     public String deleteDocument(Long id, String email) {
 
-        System.out.println("Delete Started");
-
         User user = userRepository.findByEmail(email);
 
         Document document = documentRepository
                 .findById(id)
                 .orElse(null);
-
-        System.out.println("Document Found");
 
         if (document == null) {
             return "Document Not Found";
@@ -134,16 +130,7 @@ public class DocumentService {
             return "Access Denied";
         }
 
-        System.out.println("Deleting DocumentAccess");
-        documentAccessRepository.deleteByDocument(document);
-
-        System.out.println("Deleting Versions");
-        documentVersionService.deleteVersions(document);
-
-        System.out.println("Deleting Document");
         documentRepository.delete(document);
-
-        System.out.println("Delete Completed");
 
         return "Document Deleted Successfully";
     }

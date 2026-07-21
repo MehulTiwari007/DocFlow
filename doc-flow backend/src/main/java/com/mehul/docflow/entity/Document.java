@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "documents")
@@ -29,4 +30,11 @@ public class Document {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    @OneToMany(
+            mappedBy = "document",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Comment> comments;
 }
